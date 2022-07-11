@@ -5,7 +5,6 @@ import {
   InputBase,
   styled,
   TextareaAutosize,
-  Menu,
   MenuItem,
   InputLabel,
   Select,
@@ -101,7 +100,7 @@ const UpdatePost = () => {
       setPost(json);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getImage = async () => {
@@ -208,12 +207,23 @@ const UpdatePost = () => {
         onChange={(e) => handleChange(e)}
       />
 
-      <InputTextField
-        placeholder="Enter Category"
-        value={post.category}
-        onChange={(e) => handleChange(e)}
-        name="category"
-      />
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          onChange={(e) => handleChange(e)}
+          label="Category"
+          name="category"
+          value={post.category}
+        >
+          <MenuItem value="Music">Music</MenuItem>
+          <MenuItem value="Movies">Movies</MenuItem>
+          <MenuItem value="Sports">Sports</MenuItem>
+          <MenuItem value="Tech">Tech</MenuItem>
+          <MenuItem value="Fashion">Fashion</MenuItem>
+        </Select>
+      </FormControl>
     </Container>
   );
 };

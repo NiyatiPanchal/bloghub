@@ -1,8 +1,7 @@
 import Login from "./components/account/Login";
 import Home from "./components/home/Home";
 import Header from "./components/header/Header";
-import Dataprovider from "./context/Dataprovider";
-import { Routes, Route, Link, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CreatePost from "./components/create/CreatePost";
 import DetailView from "./components/details/DetailView";
@@ -42,29 +41,27 @@ const PrivateRoute = () => {
 function App() {
   return (
     <>
-      <Dataprovider>
-        <div style={{ marginTop: 64 }}>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<PrivateRoute />}>
-              <Route path="/" element={<Home />} />
-            </Route>
+      <div style={{ marginTop: 64 }}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
-            <Route path="/create" element={<PrivateRoute />}>
-              <Route path="/create" element={<CreatePost />} />
-            </Route>
-            <Route path="/details/:id" element={<PrivateRoute />}>
-              <Route path="/details/:id" element={<DetailView />} />
-            </Route>
-            <Route path="/update/:id" element={<PrivateRoute />}>
-              <Route path="/update/:id" element={<UpdatePost />} />
-            </Route>
-            <Route path="/profile/:username" element={<PrivateRoute />}>
-              <Route path="/profile/:username" element={<Profile />} />
-            </Route>
-          </Routes>
-        </div>
-      </Dataprovider>
+          <Route path="/create" element={<PrivateRoute />}>
+            <Route path="/create" element={<CreatePost />} />
+          </Route>
+          <Route path="/details/:id" element={<PrivateRoute />}>
+            <Route path="/details/:id" element={<DetailView />} />
+          </Route>
+          <Route path="/update/:id" element={<PrivateRoute />}>
+            <Route path="/update/:id" element={<UpdatePost />} />
+          </Route>
+          <Route path="/profile/:username" element={<PrivateRoute />}>
+            <Route path="/profile/:username" element={<Profile />} />
+          </Route>
+        </Routes>
+      </div>
     </>
   );
 }

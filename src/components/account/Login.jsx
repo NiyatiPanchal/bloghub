@@ -1,6 +1,5 @@
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
-import React, { useState, useContext } from "react";
-import { DataContext } from "../../context/Dataprovider";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Component = styled(Box)`
@@ -77,8 +76,6 @@ const Login = ({ setIsAuthenticated }) => {
   const [signup, setSignup] = useState(signUpInitialValues);
   const [login, setLogin] = useState(loginInitialValues);
   const [flag, setFlag] = useState("");
-
-  const { setUsername } = useContext(DataContext);
 
   // Replacement of History hook
   const navigate = useNavigate();

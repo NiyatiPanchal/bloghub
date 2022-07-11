@@ -5,7 +5,6 @@ import {
   InputBase,
   styled,
   TextareaAutosize,
-  Menu,
   MenuItem,
   InputLabel,
   Select,

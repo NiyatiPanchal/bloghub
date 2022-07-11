@@ -88,7 +88,6 @@ router.post(
 
 router.get("/post/:id", async (req, res) => {
   try {
-    // Find the note to be update and update it
     let post = await Post.findById(req.params.id);
 
     if (!post) {
@@ -105,7 +104,7 @@ router.get("/post/:id", async (req, res) => {
 router.put("/updatepost/:id", fetchuser, async (req, res) => {
   const success = false;
   try {
-    // Find the note to be update and update it
+    // Find the post to be update and update it
     const post = await Post.findById(req.params.id);
 
     if (!post) {
@@ -129,7 +128,7 @@ router.put("/updatepost/:id", fetchuser, async (req, res) => {
 // ROUTE 3 : Delete an Existing post : DELETE "/api/posts/deletepost/:id" Login require
 router.delete("/deletepost/:id", fetchuser, async (req, res) => {
   try {
-    // Find the note to be delete and delete it
+    // Find the post to be delete and delete it
     let post = await Post.findById(req.params.id);
 
     if (!post) {
