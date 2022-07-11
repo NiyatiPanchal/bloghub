@@ -10,6 +10,9 @@ router.post("/addcomment", fetchuser, async (req, res) => {
 
   try {
     const comment = await new Comment(req.body);
+    if (!comment) {
+      return res.status(404).send("Empty Comment");
+    }
     comment.save();
     success = true;
     res.status(200).json({ success, message: "Comment saved successfully" });
