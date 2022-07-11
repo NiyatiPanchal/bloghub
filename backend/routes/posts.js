@@ -37,7 +37,7 @@ router.get("/file/:filename", async (req, res) => {
   }
 });
 
-// // ROUTE 1 : Get all the notes : GET "/api/notes/fetchallnotes" Login require
+// ROUTE 1 : Get all the posts : GET "/api/posts/fetchallposts" Login require
 router.get("/fetchallposts", async (req, res) => {
   try {
     const posts = await Post.find({});
@@ -56,40 +56,35 @@ router.get("/fetchallposts/:username", async (req, res) => {
   }
 });
 
-// ROUTE 2 : Add a new note : POST "/api/notes/addnote" Login require
-router.post("/createpost", async (req, res) => {
-  // try {
-  //   const { title, description, picture, username, catagory } = req.body;
+// ROUTE 2 : Add a new post : POST "/api/posts/createpost" Login require
+router.post(
+  "/createpost",
+  [
+    // Express validator
+    body("title", "title must be atleast 3 charachters").isLength({ min: 3 }),
+    body("description", "description must be atleast 5 charachters").isLength({
+      min: 5,
+    }),
+  ],
+  async (req, res) => {
+    var success = false;
 
-  //   //   // If there are error return bad request and the error
-  //   //   const errors = validationResult(req);
-  //   //   if (!errors.isEmpty()) {
-  //   //     return res.status(400).json({ errors: errors.array() });
-  //   //   }
+    try {
+      // If there are error return bad request and the error
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
 
-  //   const post = new Post({
-  //     title,
-  //     description,
-  //     picture,
-  //     username,
-  //     catagory,
-  //   });
-
-  //   const savePost = await post.save();
-
-  //   response.status(200).json(savePost);
-  // }
-  var success = false;
-
-  try {
-    const post = await new Post(req.body);
-    post.save();
-    success = true;
-    res.status(200).json({ success, message: "Post saved successfully" });
-  } catch (error) {
-    res.status(500).json({ success, error });
+      const post = await new Post(req.body);
+      post.save();
+      success = true;
+      res.status(200).json({ success, message: "Post saved successfully" });
+    } catch (error) {
+      res.status(500).json({ success, error });
+    }
   }
-});
+);
 
 router.get("/post/:id", async (req, res) => {
   try {
@@ -106,7 +101,7 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
-// ROUTE 3 : Update an Existing note : PUT "/api/notes/updatenote" Login require
+// ROUTE 3 : Update an Existing post : PUT "/api/posts/updatepost/:id" Login require
 router.put("/updatepost/:id", fetchuser, async (req, res) => {
   const success = false;
   try {
@@ -131,7 +126,7 @@ router.put("/updatepost/:id", fetchuser, async (req, res) => {
   }
 });
 
-// ROUTE 3 : Delete an Existing note : DELETE "/api/notes/deletenote" Login require
+// ROUTE 3 : Delete an Existing post : DELETE "/api/posts/deletepost/:id" Login require
 router.delete("/deletepost/:id", fetchuser, async (req, res) => {
   try {
     // Find the note to be delete and delete it
